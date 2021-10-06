@@ -17,3 +17,21 @@ class GetTagsList(views.APIView):
             return Response(data, status=status.HTTP_200_OK)
         except Exception:
             return Response({'status': 'Bad Request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetTagsList(views.APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        try:
+            user_id = request.data['user_id']
+            selected_tags = request.data['selected_tags']
+
+            user = User.objects.get(tg_id=user_id)
+
+            for tag in selected_tags:
+                user.tags.add(Tag.objects.get(name=tag))
+            user.save()
+
+            return Response({'status': 'OK'}, status=status.HTTP_200_OK)
+        except Exception:
+            return Response({'status': 'Bad Request'}, status=status.HTTP_400_BAD_REQUEST)
