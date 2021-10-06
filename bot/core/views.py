@@ -19,7 +19,7 @@ class GetTagsList(views.APIView):
             return Response({'status': 'Bad Request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class GetTagsList(views.APIView):
+class SelectTags(views.APIView):
     permission_classes = [AllowAny]
     def post(self, request):
         try:

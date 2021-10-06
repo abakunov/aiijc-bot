@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import GetTagsList
+from core.views import GetTagsList, SelectTags
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/get_tags_list/', GetTagsList.as_view(), name='get_tags_list'),
+    path('api/select_tags/', SelectTags.as_view(), name='select_tags'),
 ]
