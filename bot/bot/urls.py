@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from core.views import GetTagsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/get_tags_list/', GetTagsList.as_view(), name='get_tags_list'),
 ]
