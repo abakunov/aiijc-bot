@@ -5,7 +5,6 @@ WORKDIR /server
 COPY requirements.txt /server/
 RUN pip install --upgrade pip && pip install -r requirements.txt
 ADD . /server/ 
-RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000
