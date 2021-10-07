@@ -43,8 +43,7 @@ class SelectTags(views.APIView):
                 user.tags.add(Tag.objects.get(pk=tag))
                 user.save()
             
-            r = telegram_bot_sendtext('Данные успешно сохранены.', user_id)
-            print(r)
+            telegram_bot_sendtext('Данные успешно сохранены.', str(user_id))
             
             return Response({'status': 'OK'}, status=status.HTTP_200_OK)
         except Exception:
