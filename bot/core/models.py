@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime, timedelta
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -23,4 +24,5 @@ class User(models.Model):
     city_id = models.IntegerField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='user_tags', blank=True)
     salary_from = models.IntegerField(blank=True, null=True)
-    messages_count_per_day = models.IntegerField(blank=True, null=True)
+    days_interval = models.IntegerField(blank=True, null=True)
+    last_pong = models.DateField(default=datetime.today() - timedelta(days=100))

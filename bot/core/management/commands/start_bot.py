@@ -7,6 +7,10 @@ from core.models import User, Position, Tag
 
 BASE_URL = 'http://80.78.246.198:3000'
 
+menuKeyboard = types.ReplyKeyboardMarkup(resize_keyboard = True)
+menuKeyboard.add("Изменить профиль")
+menuKeyboard.add("Обратная связь")
+
 def create_link(tg_id):
     return BASE_URL + '?tg_id=' + str(tg_id)
 
@@ -25,121 +29,30 @@ def start_bot():
             link = create_link(call.message.chat.id)
             bot.send_message(call.message.chat.id, 'Отлично! Выбери интересующие тебя теги по ссылке - \n {link}'.format(link=link))
             bot.register_next_step_handler(call.message, get_tags)
-        if call.data == '20':
+        if call.data in {'20' , '40' , '60' , '80' , '90' , '120' , '140', '160' , '200'} :
             user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 20000
+            user.salary_from = int(call.data) * 1000
             user.save()
             keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
+            key_3 = types.InlineKeyboardButton(text='Каждый день', callback_data='interval,daily')
+            key_5 = types.InlineKeyboardButton(text='Раз в неделю', callback_data='interval,weekly')
+            key_7 = types.InlineKeyboardButton(text='Раз в месяц', callback_data='interval,monthly')
             keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '40':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 40000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '60':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 60000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '80':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 80000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '100':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 100000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '120':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 120000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '140':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 140000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '160':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 160000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
-            bot.register_next_step_handler(call.message, get_message_count)
-        if call.data == '200':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.salary_from = 200000
-            user.save()
-            keyboard = types.InlineKeyboardMarkup()
-            key_3 = types.InlineKeyboardButton(text='3', callback_data='3')
-            key_5 = types.InlineKeyboardButton(text='5', callback_data='5')
-            key_7 = types.InlineKeyboardButton(text='7', callback_data='7')
-            keyboard.add(key_3, key_5, key_7)
-            bot.send_message(call.message.chat.id, 'Круто! Сколько вакансий в день ты хочешь получать?', reply_markup=keyboard)
+            bot.send_message(call.message.chat.id, 'Круто!\nКак часто ты хочешь получать интересные вакансии?', reply_markup=keyboard)
             bot.register_next_step_handler(call.message, get_message_count)
 
-        if call.data == '3':
+        if call.data.count("interval") > 0:
+            interval = call.data.split(",")[-1]
             user = User.objects.get(tg_id=call.message.chat.id)
-            user.messages_count_per_day = 3
+
+            if interval == 'daily':
+                user.days_interval = 1
+            elif interval == 'weekly':
+                user.days_interval = 7
+            else:
+                user.days_interval = 30
             user.save()
-            bot.send_message(call.message.chat.id, 'Я знаю что тебе нужно! Уже совсем скоро я пришлю тебе подборку вакансий)')
-        if call.data == '5':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.messages_count_per_day = 5
-            user.save()
-            bot.send_message(call.message.chat.id, 'Я знаю что тебе нужно! Уже совсем скоро я пришлю тебе подборку вакансий)')
-        if call.data == '7':
-            user = User.objects.get(tg_id=call.message.chat.id)
-            user.messages_count_per_day = 7
-            user.save()
-            bot.send_message(call.message.chat.id, 'Я знаю что тебе нужно! Уже совсем скоро я пришлю тебе подборку вакансий)')
+            bot.send_message(call.message.chat.id, 'Я знаю что тебе нужно!\nУже совсем скоро я пришлю тебе подборку вакансий)',reply_markup=menuKeyboard)
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
@@ -147,6 +60,24 @@ def start_bot():
         key_yes = types.InlineKeyboardButton(text='Давай)', callback_data='yes')
         keyboard.add(key_yes)
         bot.send_message(message.chat.id, 'Привет! Этот бот помогает найти работу. Я задам тебе несколько вопросов, чтобы быть максимально полезным. Начнем?', reply_markup=keyboard)
+
+    @bot.message_handler(commands=['menu'])
+    def start_message(message):
+        bot.send_message(message.chat.id, 'Куда отправимся?', reply_markup=menuKeyboard)
+
+    @bot.message_handler(commands=['about'])
+    def start_message(message):
+        bot.send_message(message.chat.id, 'Меня зовут Арсений, я здесь, чтобы сэкономить твое время и помочь найти работу мечты.\nТоже устал просматривать бесконечные списки вакансий? Просто укажи параметры вакансии и получай подборки сгенерированные искуственным интелектом.', reply_markup=menuKeyboard)
+
+    @bot.message_handler()
+    def start_message(message):
+        if message.text == "Изменить профиль":
+            link = create_link(message.chat.id)
+            bot.send_message(message.chat.id, 'Начнем! Выбери интересующие тебя теги по ссылке - \n{link}'.format(link=link))
+            bot.register_next_step_handler(message, get_tags)
+        elif message.text == 'Обратная связь':
+            bot.send_message(message.chat.id, "Рады вашим предложениям и пожеланиям!\nContact us: @qootee")
+
 
     def get_tags(message):
         keyboard = types.InlineKeyboardMarkup()

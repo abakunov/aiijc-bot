@@ -4,14 +4,29 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from core.models import Tag, User
 import requests
+import telebot
+from telebot import types
 
 def telegram_bot_sendtext(bot_message, bot_chatID):
 
-   bot_token = '2040176965:AAHk1imMOdXlI_67w8fquf0MZjs5EkL7ujw'
-   send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
+    print("##")
 
-   response = requests.get(send_text)
-   return response.json()
+    bot_token = '2040176965:AAHk1imMOdXlI_67w8fquf0MZjs5EkL7ujw'
+    bot = telebot.TeleBot(bot_token)
+
+    keyboard = types.InlineKeyboardMarkup()
+    key_20 = types.InlineKeyboardButton(text='20.000р', callback_data='20')
+    key_40 = types.InlineKeyboardButton(text='40.000р', callback_data='40')
+    key_60 = types.InlineKeyboardButton(text='60.000р', callback_data='60')
+    key_80 = types.InlineKeyboardButton(text='80.000р', callback_data='80')
+    key_100 = types.InlineKeyboardButton(text='100.000р', callback_data='100')
+    key_120 = types.InlineKeyboardButton(text='120.000р', callback_data='120')
+    key_140 = types.InlineKeyboardButton(text='140.000р', callback_data='140')
+    key_160 = types.InlineKeyboardButton(text='160.000р', callback_data='160')
+    key_200 = types.InlineKeyboardButton(text='200.000р', callback_data='200')
+    keyboard.add(key_20, key_40, key_60, key_80, key_100, key_120, key_140, key_160, key_200)
+    
+    bot.send_message(bot_chatID, 'Отличный выбор!\nТеперь выбери нижнюю границу зарплатных ожиданий', reply_markup=keyboard)
 
 
 class GetTagsList(views.APIView):
