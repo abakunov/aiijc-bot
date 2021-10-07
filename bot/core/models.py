@@ -4,26 +4,6 @@ class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
 class Position(models.Model):
-
-    OPERATING_SCHEDULE_ID_VALUES = (
-        (1, 'Полный рабочий день'),
-        (2, 'Свободный график'),
-        (3, 'Сменный график'),
-        (5, 'Частичная занятость'),
-        (6, 'Удаленная работа'),
-        (7, 'Вахта'),
-        (-100, 'Не указано'),
-    )
-
-    #todo
-    OFFER_EDUCATION_ID_VALUES = (
-        (0, 'Любое'),
-        (1, 'Среднее'),
-        (2, 'Среднее профессиональное'),
-        (3, 'Неполное высшее'),
-        (4, 'Высшее'),
-    )
-
     custom_position = models.CharField(max_length=100, blank=True, null=True)
     operating_schedule = models.CharField(max_length=1000, default='', blank=True, null=True)
     salary_from = models.IntegerField(blank=True, null=True)
