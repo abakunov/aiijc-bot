@@ -29,7 +29,8 @@ class SelectTags(views.APIView):
             user = User.objects.get(tg_id=user_id)
 
             for tag in selected_tags:
-                user.tags.add(Tag.objects.get(name=tag))
+                print(tag)
+                user.tags.add(Tag.objects.get(pk=tag))
             user.save()
 
             return Response({'status': 'OK'}, status=status.HTTP_200_OK)
